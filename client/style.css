@@ -1,0 +1,19 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+nav{
+    height: 50px;
+    width: 100%;
+    border-bottom: 1px solid grey;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+nav a{
+    text-decoration: none;
+    color: black;
+    font-size: 20px;
+}
