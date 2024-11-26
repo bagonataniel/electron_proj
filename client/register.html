@@ -4,15 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Electron API Example</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="titlebar.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <nav>
-        <a href="login.html">Login</a>
-        <a href="register.html">Register</a>
-        <a onclick="localStorage.removeItem('token')">Logout</a>
-        <a href="dashboard.html">Dashboard</a>
-    </nav>
+    <div class="titlebar">
+        <p>Program name</p>
+        <div class="drag-area"></div>
+        <div class="window-controller">
+          <i class="fa-solid fa-minus" id="min-button"></i>
+          <i class="fa-solid fa-window-restore" id="max-button"></i>
+          <i class="fa-solid fa-xmark" id="close-button"></i>
+        </div>
+    </div>
   
     <div class="container">
             <label for="username">username: </label>
@@ -20,8 +25,10 @@
             <label for="password">password: </label>
             <input type="password" name="password" id="password">
             <button id="regBtn">register</button>
+            <a href="login.html">Login</a>
     </div>
 
+    <script src="scripts/renderer-titlebar.js"></script>
     <script src="scripts/renderer-register.js"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-const { contextBridge } = require('electron');
+const { contextBridge, ipcRenderer } = require('electron');
 
 contextBridge.exposeInMainWorld('api', {
   get: async (url) => {
@@ -33,4 +33,12 @@ contextBridge.exposeInMainWorld('loginApi', {
       throw error; // Propagate the error to the renderer
     }
   },
+});
+
+contextBridge.exposeInMainWorld("electron", {
+  ipcRenderer: {
+    send: (...args) => ipcRenderer.send(...args),
+    on: (channel, listener) => ipcRenderer.on(channel, listener),
+    once: (channel, listener) => ipcRenderer.once(channel, listener),
+  }
 });

@@ -15,3 +15,8 @@ fetch('http://localhost:3000/protected', {
         console.log(data);
         
     });
+
+document.getElementById("logout-btn").addEventListener('click', ()=>{
+    localStorage.removeItem('token')
+    window.location.href = "login.html"
+})
