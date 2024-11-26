@@ -13,7 +13,7 @@ fetch('http://localhost:3000/protected', {
             window.location.href = "login.html" 
         }
         console.log(data);
-        
+        document.getElementById("greet").innerText = "Hello " + data.user.username
     });
 
 document.getElementById("logout-btn").addEventListener('click', ()=>{
