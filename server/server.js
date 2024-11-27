@@ -2,11 +2,20 @@ const express = require('express');
 const path = require('path');
 const jwt = require('jsonwebtoken')
 const authRoutes = require('./routes/auth')
+const mysql = require('mysql')
 require('dotenv').config();
 
 const app = express();
 const dataFilePath = path.join(__dirname, 'data.json');
 const SECRET_KEY = process.env.SECRET_KEY;
+
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "",
+  database: "financial_manager"
+});
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -14,11 +23,22 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/auth', authRoutes)
 
 
-app.post('/register', (req, res) =>{
+app.post('/register', async (req, res) =>{
   const data = req.body;
   console.log(data)
 
-  res.json({ message: 'Data updated successfully' });
+  con.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!");
+    var sql = "INSERT INTO users (first_name, last_name, email, password_hash) VALUES (?);";
+    var values = [data.first_name, data.last_name, data.username, data.password];
+
+    con.query(sql, [values], function (err, result) {
+      if (err) throw err;
+      console.log("Number of records inserted: " + result.affectedRows);
+      res.json({ message: 'Register successful' });
+    });
+  });
 })
 
 
