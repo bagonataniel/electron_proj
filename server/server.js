@@ -2,7 +2,9 @@ const express = require('express');
 const path = require('path');
 const jwt = require('jsonwebtoken')
 const authRoutes = require('./routes/auth')
-const mysql = require('mysql2')
+const userRoutes = require('./routes/userRoutes')
+const mysql = require('mysql2');
+const bcrypt = require('bcryptjs');
 require('dotenv').config();
 
 const app = express();
@@ -29,43 +31,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/auth', authRoutes)
+app.use('/', userRoutes)
 
-
-app.post('/register', async (req, res) =>{
-  const data = req.body;
-  console.log(data)
-
-  pool.execute("INSERT INTO users (first_name, last_name, email, password_hash) VALUES (?,?,?,?)", [data.first_name, data.last_name, data.username, data.password], function(err, result) {
-    if (err) {
-      console.error(err)
-      if (err.code == "ER_DUP_ENTRY") {
-        return res.status(400).json({ error: 'User already exists' });
-      }
-    }
-
-    console.log("Register successful");
-    
-    res.json({ message: 'Register successful' });
-  })
-})
-
-
-function verifyToken(req, res, next) {
-  const token = req.headers['authorization']?.split(' ')[1];
-  if (!token) return res.status(403).json({ error: 'No token provided' });
-
-  jwt.verify(token, SECRET_KEY, (err, decoded) => {
-      if (err) return res.status(401).json({ error: 'Unauthorized' });
-
-      req.user = decoded; // Attach user info to the request
-      next();
-  });
-}
-
-// Example protected route
-app.get('/protected', verifyToken, (req, res) => {
-  res.json({ message: 'This is a protected route', user: req.user });
-});
 
 // Start the server
 const PORT = 3000;

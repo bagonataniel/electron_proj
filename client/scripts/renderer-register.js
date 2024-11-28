@@ -1,5 +1,5 @@
 document.getElementById('regBtn').addEventListener('click', ()=>{
-    const response = fetch("http://localhost:3000/register", {
+    const response = fetch("http://localhost:3000/auth/register", {
         method: "POST",
         body: JSON.stringify({
           first_name : document.getElementById('first-name').value,

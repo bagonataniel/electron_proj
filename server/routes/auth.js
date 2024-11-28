@@ -2,6 +2,7 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
 const mysql = require('mysql2')
+const bcrypt = require('bcryptjs');
 require('dotenv').config();
 const SECRET_KEY = process.env.SECRET_KEY;
 
@@ -33,7 +34,7 @@ router.post('/login', (req, res) =>{
           return res.status(401).json({ error: 'Invalid credentials' });
         }
 
-        if (data.password == result[0].password_hash) {
+        if (bcrypt.compare(data.password, result[0].password_hash)) {
           const token = generateToken({ id: result[0].user_id, username: data.username });
           res.json({ token });
         }
@@ -43,5 +44,22 @@ router.post('/login', (req, res) =>{
     })
 })
 
+router.post('/register', (req, res) =>{
+  const data = req.body;
+  console.log(data)
+
+  var hashed_password = bcrypt.hashSync(data.password, 10);
+  pool.execute("INSERT INTO users (first_name, last_name, email, password_hash) VALUES (?,?,?,?)", [data.first_name, data.last_name, data.username, hashed_password], function(err, result) {
+    if (err) {
+      console.error(err)
+    }
+
+    if (err && err.code == "ER_DUP_ENTRY") {
+      return res.status(400).json({ error: 'User already exists' });
+    }
+    
+    res.json({ message: 'Register successful' });
+  })
+})
 
 module.exports = router;
