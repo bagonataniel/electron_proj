@@ -6,3 +6,47 @@ CREATE TABLE users (
     password_hash VARCHAR(255) NOT NULL, -- Store password securely (hashed)
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+-- Create Accounts Table
+CREATE TABLE accounts (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES Users(id) ON DELETE CASCADE,
+    name VARCHAR(100) NOT NULL,
+    type VARCHAR(50) NOT NULL CHECK (type IN ('Savings', 'Checking', 'Credit Card', 'Cash')),
+    balance DECIMAL(12, 2) DEFAULT 0.00,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Create Categories Table
+CREATE TABLE categories (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES Users(id) ON DELETE CASCADE,
+    name VARCHAR(100) NOT NULL,
+    type VARCHAR(20) NOT NULL CHECK (type IN ('Income', 'Expense')),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE (user_id, name) -- Ensures unique category names per user
+);
+
+-- Create Transactions Table
+CREATE TABLE transactions (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES Users(id) ON DELETE CASCADE,
+    account_id INTEGER REFERENCES Accounts(id) ON DELETE CASCADE,
+    category_id INTEGER REFERENCES Categories(id) ON DELETE SET NULL,
+    amount DECIMAL(12, 2) NOT NULL,
+    type VARCHAR(20) NOT NULL CHECK (type IN ('Income', 'Expense')),
+    date DATE NOT NULL,
+    description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Create Budgets Table (Optional)
+CREATE TABLE budgets (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES Users(id) ON DELETE CASCADE,
+    category_id INTEGER REFERENCES Categories(id) ON DELETE CASCADE,
+    amount DECIMAL(12, 2) NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
