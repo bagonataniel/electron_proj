@@ -36,9 +36,9 @@ contextBridge.exposeInMainWorld('loginApi', {
 });
 
 contextBridge.exposeInMainWorld('registerApi', {
-  post: (first_name, last_name, username, password) => {
+  post: async (first_name, last_name, username, password) => {
     try {
-      const response = fetch("http://localhost:3000/auth/register", {
+      const response = await fetch("http://localhost:3000/auth/register", {
         method: "POST",
         body: JSON.stringify({
           first_name : first_name,
@@ -51,7 +51,7 @@ contextBridge.exposeInMainWorld('registerApi', {
         }
       });
       
-      return response;
+      return await response.json();
     } catch (error) {
       console.error('Error in register API:', error);
       throw error; // Propagate the error to the renderer

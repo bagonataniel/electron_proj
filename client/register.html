@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Electron API Example</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="titlebar.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles/titlebar.css">
+    <link rel="stylesheet" href="styles/style-register.css">
 </head>
 <body>
     <div class="titlebar">
@@ -19,21 +19,21 @@
         </div>
     </div>
   
-    <div class="container">
-        <label for="first-name">first-name: </label>
+    <div class="register-container">
+        <label for="first-name">First Name</label>
         <input type="text" name="first-name", id="first-name">
 
-        <label for="last-name">last-name: </label>
+        <label for="last-name">Last Name</label>
         <input type="text" name="last-name", id="last-name">
 
-        <label for="username">username: </label>
+        <label for="username">Username</label>
         <input type="text" name="username" id="username"><br>
 
-        <label for="password">password: </label>
+        <label for="password">Password</label>
         <input type="password" name="password" id="password">
 
-        <button id="regBtn">register</button>
-        <a href="login.html">Login</a>
+        <button id="regBtn">Register</button>
+        <a href="login.html">Login Instead?</a>
     </div>
 
     <script src="scripts/renderer-titlebar.js"></script>

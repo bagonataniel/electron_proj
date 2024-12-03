@@ -29,4 +29,26 @@ document.getElementById("createAccountBtn").addEventListener('click', async ()=>
 document.getElementById("getAccounts").addEventListener('click', async () =>{
     const data = await window.getAccountApi.get(token)
     console.log(data)
+    data.forEach(element => {
+        var container = document.createElement("div");
+        container.classList.add('account')
+
+        var name = document.createElement("p")
+        name.classList.add("acc-name")
+
+        var type = document.createElement("p")
+        type.classList.add("acc-type")
+
+        var value = document.createElement("p")
+        value.classList.add("acc-value")
+
+        name.innerText = element.name
+        type.innerText = element.type
+        value.innerText = element.balance
+
+        container.appendChild(name)
+        container.appendChild(type)
+        container.appendChild(value)
+        document.querySelector(".account-list").appendChild(container);
+    });
 })

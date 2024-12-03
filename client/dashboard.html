@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Electron API Example</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="titlebar.css">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="styles/titlebar.css">
+  <link rel="stylesheet" href="styles/style-dashboard.css">
 </head>
 <body>
   <div class="titlebar">
@@ -19,19 +19,42 @@
         <i class="fa-solid fa-xmark" id="close-button"></i>
       </div>
   </div>
-  <h1 id="greet">hello</h1>
-  <div class="createAccount">
-    <input type="text" name="accName" id="accName" placeholder="Account name">
-    <select id="accountType">
-      <option value="Savings">Savings</option>
-      <option value="Checking">Checking</option>
-      <option value="Credit">Credit Card</option>
-      <option value="Cash">Cash</option>
-    </select>
-    <input type="number" name="balance" id="balance">
-    <button id="createAccountBtn">Create account</button>
-    <button id="getAccounts">Get all accounts</button>
+  <header>
+    <p>logo</p>
+    <div class="user">
+      <p id="username">Username</p>
+      <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="">
+    </div>
+  </header>
+
+  <div class="main-content">
+    <nav>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="accounts.html">Accounts</a>
+      <a href="#">Transactions</a>
+      <a href="#">Budgeting</a>
+      <a href="#">Reports</a>
+      <a href="#">Settings</a>
+    </nav>
+
+    <div class="content">
+      <h1 id="greet">hello</h1>
+      <div class="createAccount">
+        <input type="text" name="accName" id="accName" placeholder="Account name">
+        <select id="accountType">
+          <option value="Savings">Savings</option>
+          <option value="Checking">Checking</option>
+          <option value="Credit">Credit Card</option>
+          <option value="Cash">Cash</option>
+        </select>
+        <input type="number" name="balance" id="balance">
+        <button id="createAccountBtn">Create account</button>
+        <button id="getAccounts">Get all accounts</button>
+      </div>
+    </div>
   </div>
+  
+  
   <script src="scripts/renderer-titlebar.js"></script>
   <script src="scripts/renderer-dashboard.js"></script>
 </body>
