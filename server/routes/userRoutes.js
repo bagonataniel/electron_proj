@@ -47,4 +47,16 @@ router.get('/getAllAccounts', verifyToken, (req, res) =>{
     return res.json(result);
   })
 })
+
+router.post('/removeAccount', verifyToken, (req, res) =>{
+  const data = req.body
+  pool.execute("DELETE FROM accounts WHERE user_id = (?) and id = (?)", [req.user.id, data.accId], function(err,result) {
+    if (err) {
+      console.error(err)
+      return res.status(500).json({ error: 'Database error' });
+    }
+
+    res.json({ message : "Account deleted successfully"})
+  })
+})
 module.exports = router;

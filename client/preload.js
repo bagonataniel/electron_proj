@@ -123,6 +123,29 @@ contextBridge.exposeInMainWorld('getAccountApi', {
   }
 })
 
+contextBridge.exposeInMainWorld('removeAccountApi', {
+  post: async (token, accountId) => {
+    try {
+      const response = await fetch("http://localhost:3000/removeAccount", {
+        method: "POST",
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          "Content-type": "application/json; charset=UTF-8"
+        },
+        body: JSON.stringify({
+          accId : accountId
+        }),
+      });
+
+      // Parse and return the JSON response
+      return await response.json();
+    } catch (error) {
+      console.error('Error in login API:', error);
+      throw error; // Propagate the error to the renderer
+    }
+  }
+})
+
 contextBridge.exposeInMainWorld("electron", {
   ipcRenderer: {
     send: (...args) => ipcRenderer.send(...args),

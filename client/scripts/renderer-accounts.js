@@ -54,12 +54,13 @@ async function getAccountList(){
 
         var menuBar = document.createElement("div")
         menuBar.classList.add("acc-menu")
+        menuBar.setAttribute("id", "asd")
 
         name.innerText = element.name
         value.innerText = element.balance
         type.innerText = element.type
         createdAt.innerText = "Created at: "+element.created_at.split("T")[0]
-        menuBar.innerHTML = '<i class="fa-solid fa-pencil"></i><i class="fa-solid fa-gear"></i>'
+        menuBar.innerHTML = '<i class="fa-solid fa-pencil"></i><i onclick="removeAccount('+ element.id +')" class="fa-solid fa-trash"></i>'
 
         container.appendChild(name)
         container.appendChild(value)
@@ -68,4 +69,13 @@ async function getAccountList(){
         container.appendChild(menuBar)
         document.querySelector(".account-list").appendChild(container);
     });
+}
+
+async function removeAccount(id) {
+    const data = await window.removeAccountApi.post(token, id)
+    console.log(data);
+    if (data.message = "Account deleted successfully") {
+        document.querySelector(".account-list").innerHTML = "";
+        getAccountList()
+    }
 }
