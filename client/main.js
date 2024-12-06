@@ -6,8 +6,8 @@ let mainWindow;
 
 app.whenReady().then(() => {
   mainWindow = new BrowserWindow({
-    width: 1200,
-    height: 800,
+    width: 1366,
+    height: 768,
     title: "Personal Expense Tracker",
     frame: false,
     webPreferences: {
