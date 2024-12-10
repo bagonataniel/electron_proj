@@ -59,4 +59,18 @@ router.post('/removeAccount', verifyToken, (req, res) =>{
     res.json({ message : "Account deleted successfully"})
   })
 })
+
+router.post('/editAccount', verifyToken, (req, res) => {
+  const data = req.body
+  pool.execute("UPDATE accounts SET name = (?) WHERE user_id = (?) and id = (?)", [data.newName, req.user.id, data.AccountId], function(err, result) {
+    if (err) {
+      console.error(err)
+      return res.status(500).json({ error: 'Database error' });
+    }
+    else{
+      res.json({ message : "Account renamed succesfully"})
+    }
+
+  })
+})
 module.exports = router;

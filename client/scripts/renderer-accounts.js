@@ -24,7 +24,6 @@ document.getElementById("createAccountBtn").addEventListener('click', async ()=>
     const data = await window.createAccountApi.post(token, account_name, accountTypeDiv.options[accountTypeDiv.selectedIndex].text, accountBalance);
     console.log(data);
 
-    document.querySelector(".account-list").innerHTML = "";
     getAccountList()
     
 })
@@ -34,6 +33,7 @@ document.getElementById("getAccounts").addEventListener('click', async () =>{
 })
 
 async function getAccountList(){
+    document.querySelector(".account-list").innerHTML = "";
     const data = await window.getAccountApi.get(token)
     console.log(data)
     data.forEach(element => {
@@ -60,7 +60,7 @@ async function getAccountList(){
         value.innerText = element.balance
         type.innerText = element.type
         createdAt.innerText = "Created at: "+element.created_at.split("T")[0]
-        menuBar.innerHTML = '<i class="fa-solid fa-pencil"></i><i onclick="removeAccount('+ element.id +')" class="fa-solid fa-trash"></i>'
+        menuBar.innerHTML = '<i class="fa-solid fa-pencil" onclick="showPopup('+ element.id +')"></i><i onclick="removeAccount('+ element.id +')" class="fa-solid fa-trash"></i>'
 
         container.appendChild(name)
         container.appendChild(value)
@@ -75,7 +75,25 @@ async function removeAccount(id) {
     const data = await window.removeAccountApi.post(token, id)
     console.log(data);
     if (data.message = "Account deleted successfully") {
-        document.querySelector(".account-list").innerHTML = "";
         getAccountList()
     }
 }
+
+async function editAccount(id, name) {
+    let accName = name;
+    const data = await window.renameAccountApi.post(token, id, accName);
+    console.log(data);
+    if (data.message = "Account renamed succesfully") {
+        getAccountList()
+        document.querySelector(".renamePopup").style.display = "none";
+    }
+    
+}
+
+function showPopup(id){
+    document.querySelector(".renamePopup").style.display = "block";
+    document.getElementById("submitRename").addEventListener('click', () => {
+      editAccount(id, document.getElementById("newAccountName").value)  
+    })
+}
+getAccountList()

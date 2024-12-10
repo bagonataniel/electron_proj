@@ -32,3 +32,14 @@
 .account:hover .acc-menu{
     display: block;
 }
+.fa-solid{
+    cursor: pointer;
+}
+.renamePopup{
+    display: none;
+    z-index: 10;
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background-color: black;
+}

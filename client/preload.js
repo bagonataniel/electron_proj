@@ -146,6 +146,31 @@ contextBridge.exposeInMainWorld('removeAccountApi', {
   }
 })
 
+contextBridge.exposeInMainWorld('renameAccountApi', {
+  post: async (token, accountId, newAccName) => {
+    try {
+      const response = await fetch("http://localhost:3000/editAccount", {
+        method: "POST",
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          "Content-type": "application/json; charset=UTF-8"
+        },
+        body: JSON.stringify({
+          newName : newAccName,
+          AccountId : accountId
+        }),
+      });
+
+      // Parse and return the JSON response
+      return await response.json();
+    } catch (error) {
+      console.error('Error in login API:', error);
+      throw error; // Propagate the error to the renderer
+    }
+  }
+})
+
+
 contextBridge.exposeInMainWorld("electron", {
   ipcRenderer: {
     send: (...args) => ipcRenderer.send(...args),
