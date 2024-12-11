@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Electron API Example</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="styles/titlebar.css">
+  <link rel="stylesheet" href="styles/style.css">
+  <link rel="stylesheet" href="styles/style-dashboard.css">
+</head>
+<body>
+  <div class="titlebar">
+      <p>Program name</p>
+      <div class="drag-area"></div>
+      <button id="logout-btn">Logout</button>
+      <div class="window-controller">
+        <i class="fa-solid fa-minus" id="min-button"></i>
+        <i class="fa-solid fa-window-restore" id="max-button"></i>
+        <i class="fa-solid fa-xmark" id="close-button"></i>
+      </div>
+  </div>
+  <header>
+    <p>logo</p>
+    <div class="user">
+      <p id="username">Username</p>
+      <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="">
+    </div>
+  </header>
+
+  <div class="main-content">
+    <nav>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="accounts.html">Accounts</a>
+      <a href="transactions.html">Transactions</a>
+      <a href="#">Budgeting</a>
+      <a href="#">Reports</a>
+      <a href="#">Settings</a>
+    </nav>
+
+    <div class="content">
+      <div class="createTransaction">
+        <!-- id	user_id	account_id	amount	type	date	description	created_at	 -->
+        <select id="accountList">
+            <!-- <option value="Savings">Savings</option> -->
+          </select>
+        <input type="number" name="" id="amount">
+        <input type="date" name="" id="date">
+        <input type="text" name="" id="description">
+        <button id="submitTransaction">submit</button>
+      </div>
+  </div>
+  
+  
+  <script src="scripts/renderer-titlebar.js"></script>
+  <script src="scripts/renderer-transactions.js"></script>
+</body>
+</html>

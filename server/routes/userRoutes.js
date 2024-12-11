@@ -73,4 +73,16 @@ router.post('/editAccount', verifyToken, (req, res) => {
 
   })
 })
+
+router.post('/addTransaction', verifyToken, (req, res) => {
+  const data = req.body
+  pool.execute("INSERT INTO transactions (user_id, account_id, amount, type, date, description) VALUES (?,?,?,?,?,?)", [req.user.id, data.accountId, data.amount, data.type, data.date, data.description], function(err,result) {
+    if (err) {
+      console.error(err)
+      return res.status(500).json({ error: 'Database error' });
+    }
+    
+    res.status(200).json({ message: 'Transaction added succesfully' });
+  })
+})
 module.exports = router;

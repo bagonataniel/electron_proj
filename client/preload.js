@@ -170,6 +170,33 @@ contextBridge.exposeInMainWorld('renameAccountApi', {
   }
 })
 
+// data.accountId, data.amount, data.type, data.date, data.description
+contextBridge.exposeInMainWorld('addTransactionApi', {
+  post: async (token, accountId, amount, type, date, description) => {
+    try {
+      const response = await fetch("http://localhost:3000/addTransaction", {
+        method: "POST",
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          "Content-type": "application/json; charset=UTF-8"
+        },
+        body: JSON.stringify({
+          accountId : accountId,
+          amount : amount,
+          type : type,
+          date : date,
+          description : description
+        }),
+      });
+
+      // Parse and return the JSON response
+      return await response.json();
+    } catch (error) {
+      console.error('Error in login API:', error);
+      throw error; // Propagate the error to the renderer
+    }
+  }
+})
 
 contextBridge.exposeInMainWorld("electron", {
   ipcRenderer: {
