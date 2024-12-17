@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Parkinsans:wght@300..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 *{
     margin: 0;
     padding: 0;
-    font-family: "Parkinsans", sans-serif;
+    font-family: "Inter", sans-serif;
 }
 header{
     top: 0;
@@ -49,9 +49,9 @@ nav a:hover{
     color: #4CAF50;
 }
 .content {
-    flex-grow: 1; /* Takes up the remaining space */
+    flex-grow: 1;
     padding: 20px;
-    background-color: #121212; /* Dark background */
+    background-color: #121212;
     color: #E0E0E0;
-    overflow-y: auto; /* Ensures scrolling if content overflows */
+    overflow-y: auto;
   }

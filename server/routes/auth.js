@@ -19,6 +19,19 @@ var pool = mysql.createConnection({
 function generateToken(user) {
     return jwt.sign({ id: user.id, username: user.username }, SECRET_KEY, { expiresIn: '1h' });
   }
+
+async function comparePasswords(plainPassword, hashedPassword) {
+    try {
+        const isMatch = await bcrypt.compare(plainPassword, hashedPassword);
+        if (isMatch) {
+            return true
+        } else {
+            return false
+        }
+    } catch (err) {
+        console.error("Error comparing passwords:", err);
+    }
+}
   
 router.post('/login', (req, res) =>{
     const data = req.body;
@@ -34,7 +47,9 @@ router.post('/login', (req, res) =>{
           return res.status(401).json({ error: 'Invalid credentials' });
         }
 
-        if (bcrypt.compare(data.password, result[0].password_hash)) {
+        console.log(`pw: ${data.password}, passwordHash: ${result[0].password_hash}`);
+        
+        if (comparePasswords(data.password, result[0].password_hash) == true) {
           const token = generateToken({ id: result[0].user_id, username: data.username });
           res.json({ token });
         }
