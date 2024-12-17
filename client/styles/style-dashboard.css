@@ -25,6 +25,7 @@
     grid-template-columns: 25% 25% 25% 25%;
     width: 100%;
     justify-items: center;
+    margin-bottom: 100px;
 }
 .account{
     background-color: #252525;
@@ -34,10 +35,11 @@
     justify-content: center;
     flex-wrap: wrap;
     flex-direction: column;
-    gap: 15px;
+    margin: 10px 0;
     width: 200px;
     height: 140px;
     padding: 13px 10px;
+    box-shadow: 2px 4px 4px 0px rgba(0,0,0,0.25);
 }
 .name{
     font-weight: bold;
